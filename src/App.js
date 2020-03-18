@@ -1,26 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
+import TableData from './components/table/table';
+import { get } from './utils/api';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: null
+    }
+  }
+  getAll = async() => {
+    console.log("GETALL");
+    await get('all')
+      .then((resp) => {
+        const { data } = resp;
+        console.log("Resp ->", data);
+        this.setState({data: data});
+      })
+      .catch((error)=> {
+        console.log("Error ->", error);
+      })
+  }
+
+  async componentDidMount() {
+    this.getAll();
+  }
+  render() {
+    return (
+      <div className="App">
+          {this.state.data && <TableData data={this.state.data}/>}
+      </div>
+    );
+  }
 }
 
 export default App;
