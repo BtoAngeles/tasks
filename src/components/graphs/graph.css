@@ -1,0 +1,10 @@
+.tableTitle {
+    width: 200px;
+    margin: auto;
+    color: white;
+    background-color: mediumvioletred;
+    font-weight: 600;
+}
+.contentTitle {
+    display: flex;
+}

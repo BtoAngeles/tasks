@@ -1,5 +1,5 @@
 import React from 'react';
-import TableData from './components/table/table';
+import ScrollableTabsButtonPrevent  from './components/tabs/tabs';
 import { get } from './utils/api';
 import './App.css';
 
@@ -10,12 +10,12 @@ class App extends React.Component {
       data: null
     }
   }
+
+  //Se realiza la llamada del servicio que obtiene la lista de todas las tareas
   getAll = async() => {
-    console.log("GETALL");
     await get('all')
       .then((resp) => {
         const { data } = resp;
-        console.log("Resp ->", data);
         this.setState({data: data});
       })
       .catch((error)=> {
@@ -26,10 +26,11 @@ class App extends React.Component {
   async componentDidMount() {
     this.getAll();
   }
+  //Metodo de renderizado en donde mandamos llamar el componente de los tabs
   render() {
     return (
       <div className="App">
-          {this.state.data && <TableData data={this.state.data}/>}
+        { this.state.data && <ScrollableTabsButtonPrevent data={this.state.data} />}
       </div>
     );
   }

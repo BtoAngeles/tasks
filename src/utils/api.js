@@ -9,3 +9,11 @@ export const get = async (path) => {
 export const post = async (path, body) => {
     return axios.post(url + path, body);
 }
+
+export const deleteTask = async (path) => {
+    return axios.delete(url + path);
+}
+
+export const patch = async (path, body) => {
+    return axios.patch(url + path, body);
+}
